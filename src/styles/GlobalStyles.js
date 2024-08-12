@@ -1,31 +1,19 @@
-/*
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-  rel="stylesheet"
-/>
-<link
-  href="https://fonts.googleapis.com/css2?family=Sono:wght@400;500;600&display=swap"
-  rel="stylesheet"
-/>
-*/
+import { createGlobalStyle } from "styled-components";
 
-/* Colors adapted from https://tailwindcss.com/docs/customizing-colors */
-
-/* :root { */
-/* Indigo */
-/* --color-brand-50: #eef2ff;
+const GlobalStyles = createGlobalStyle`
+:root {
+  /* Indigo */
+  --color-brand-50: #eef2ff;
   --color-brand-100: #e0e7ff;
   --color-brand-200: #c7d2fe;
   --color-brand-500: #6366f1;
   --color-brand-600: #4f46e5;
   --color-brand-700: #4338ca;
   --color-brand-800: #3730a3;
-  --color-brand-900: #312e81; */
+  --color-brand-900: #312e81;
 
-/* Grey */
-/* --color-grey-0: #fff;
+  /* Grey */
+  --color-grey-0: #fff;
   --color-grey-50: #f9fafb;
   --color-grey-100: #f3f4f6;
   --color-grey-200: #e5e7eb;
@@ -61,24 +49,24 @@
   --border-radius-tiny: 3px;
   --border-radius-sm: 5px;
   --border-radius-md: 7px;
-  --border-radius-lg: 9px; */
+  --border-radius-lg: 9px;
 
-/* For dark mode */
-/* --image-grayscale: 0;
-  --image-opacity: 100%; */
-/* } */
-/* 
+  /* For dark mode */
+  --image-grayscale: 0;
+  --image-opacity: 100%;
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   padding: 0;
-  margin: 0; */
+  margin: 0;
 
-/* Creating animations for dark mode */
-/* transition: background-color 0.3s, border 0.3s; */
-/* } */
-/* 
+  /* Creating animations for dark mode */
+  transition: background-color 0.3s, border 0.3s;
+}
+
 html {
   font-size: 62.5%;
 }
@@ -121,10 +109,10 @@ textarea:focus,
 select:focus {
   outline: 2px solid var(--color-brand-600);
   outline-offset: -1px;
-} */
+}
 
 /* Parent selector, finally 😃 */
-/* button:has(svg) {
+button:has(svg) {
   line-height: 0;
 }
 
@@ -149,11 +137,11 @@ h6 {
 }
 
 img {
-  max-width: 100%; */
+  max-width: 100%;
 
-/* For dark mode */
-/* filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity)); */
-/* } */
+  /* For dark mode */
+  filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
+}
 
 /*
 FOR DARK MODE
@@ -194,3 +182,6 @@ FOR DARK MODE
 --image-grayscale: 10%;
 --image-opacity: 90%;
 */
+`;
+
+export default GlobalStyles;
