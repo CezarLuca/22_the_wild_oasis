@@ -1,5 +1,13 @@
+import styled from "styled-components";
+
+const StyledHeader = styled.header`
+    background-color: #f8f8f8;
+    padding: 1.2rem 4.8rem;
+    border-bottom: 1px solid var(--color-grey-100);
+`;
+
 function Header() {
-    return <header>Header</header>;
+    return <StyledHeader>Header</StyledHeader>;
 }
 
 export default Header;
