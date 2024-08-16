@@ -60,13 +60,14 @@ function CabinRow({ cabin }) {
         //     deleteCabin(id);
         // },
         mutationFn: deleteCabin,
-        // onSuccess: () => {
-        //     alert("Cabin deleted successfully");
-        // },
         onSuccess: () => {
+            alert("Cabin deleted successfully");
             queryClient.invalidateQueries({
                 queryKey: ["cabins"],
             });
+        },
+        onError: (error) => {
+            alert("An error occurred: " + error.message);
         },
     });
 
