@@ -6,6 +6,9 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createCabin } from "../../services/apiCabins";
+import toast from "react-hot-toast";
 
 const FormRow = styled.div`
     display: grid;
@@ -44,10 +47,28 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+    const queryClient = useQueryClient();
+    const { mutate, isCreating } = useMutation({
+        mutationFn: (newCabin) => {
+            return createCabin(newCabin);
+        },
+        onSuccess: () => {
+            toast.success("New cabin successfully created");
+            queryClient.invalidateQueries({ queryKey: ["cabins"] });
+            reset();
+        },
+        onError: (error) => {
+            toast.error(
+                `An error occurred while creating the cabin: ${error.message}`
+            );
+            console.error(error);
+        },
+    });
 
     function onSubmit(data) {
-        console.log(data);
+        // console.log(data);
+        mutate(data);
     }
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -61,7 +82,7 @@ function CreateCabinForm() {
                 <Input
                     type="number"
                     id="maxCapacity"
-                    {...register("maxCapacity")}
+                    {...register("max_capacity")}
                 />
             </FormRow>
 
@@ -70,7 +91,7 @@ function CreateCabinForm() {
                 <Input
                     type="number"
                     id="regularPrice"
-                    {...register("regularPrice")}
+                    {...register("regular_price")}
                 />
             </FormRow>
 
@@ -104,7 +125,7 @@ function CreateCabinForm() {
                 <Button $variation="secondary" type="reset">
                     Cancel
                 </Button>
-                <Button>Edit cabin</Button>
+                <Button disabled={isCreating}>Add cabin</Button>
             </FormRow>
         </Form>
     );
