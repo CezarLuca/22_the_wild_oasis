@@ -47,7 +47,9 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, getValues, formState } = useForm();
+    const { errors } = formState;
+    // console.log(errors);
     const queryClient = useQueryClient();
     const { mutate, isCreating } = useMutation({
         mutationFn: (newCabin) => {
@@ -86,6 +88,7 @@ function CreateCabinForm() {
                         required: "This field is required",
                     })}
                 />
+                {errors?.name?.message && <Error>{errors.name.message}</Error>}
             </FormRow>
 
             <FormRow>
@@ -126,10 +129,11 @@ function CreateCabinForm() {
                     defaultValue={0}
                     {...register("discount", {
                         required: "This field is required",
-                        min: {
-                            validate: (value) => value <= 0,
-                            message:
-                                "Discount must be smaller than regular price",
+                        validate: (value) => {
+                            return (
+                                value <= getValues().regular_price ||
+                                "Discount must be smaller than regular price"
+                            );
                         },
                     })}
                 />
