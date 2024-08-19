@@ -8,8 +8,9 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+import FormRow from "../../ui/FormRow";
 
-const FormRow = styled.div`
+const StyledFormRow = styled.div`
     display: grid;
     align-items: center;
     grid-template-columns: 24rem 1fr 1.2fr;
@@ -78,7 +79,7 @@ function CreateCabinForm() {
 
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
-            <FormRow>
+            <StyledFormRow>
                 <Label htmlFor="name">Cabin name</Label>
                 <Input
                     type="text"
@@ -88,9 +89,19 @@ function CreateCabinForm() {
                     })}
                 />
                 {errors?.name?.message && <Error>{errors.name.message}</Error>}
+            </StyledFormRow>
+
+            <FormRow label="Cabin name" errors="errors?.name?.message">
+                <Input
+                    type="text"
+                    id="name"
+                    {...register("name", {
+                        required: "This field is required",
+                    })}
+                />
             </FormRow>
 
-            <FormRow>
+            <StyledFormRow>
                 <Label htmlFor="maxCapacity">Maximum capacity</Label>
                 <Input
                     type="number"
@@ -103,9 +114,9 @@ function CreateCabinForm() {
                         },
                     })}
                 />
-            </FormRow>
+            </StyledFormRow>
 
-            <FormRow>
+            <StyledFormRow>
                 <Label htmlFor="regularPrice">Regular price</Label>
                 <Input
                     type="number"
@@ -118,9 +129,9 @@ function CreateCabinForm() {
                         },
                     })}
                 />
-            </FormRow>
+            </StyledFormRow>
 
-            <FormRow>
+            <StyledFormRow>
                 <Label htmlFor="discount">Discount</Label>
                 <Input
                     type="number"
@@ -136,9 +147,9 @@ function CreateCabinForm() {
                         },
                     })}
                 />
-            </FormRow>
+            </StyledFormRow>
 
-            <FormRow>
+            <StyledFormRow>
                 <Label htmlFor="description">Description for website</Label>
                 <Textarea
                     type="number"
@@ -148,20 +159,20 @@ function CreateCabinForm() {
                         required: "This field is required",
                     })}
                 />
-            </FormRow>
+            </StyledFormRow>
 
-            <FormRow>
+            <StyledFormRow>
                 <Label htmlFor="image">Cabin photo</Label>
                 <FileInput id="image" accept="image/*" />
-            </FormRow>
+            </StyledFormRow>
 
-            <FormRow>
+            <StyledFormRow>
                 {/* type is an HTML attribute! */}
                 <Button $variation="secondary" type="reset">
                     Cancel
                 </Button>
                 <Button disabled={isCreating}>Add cabin</Button>
-            </FormRow>
+            </StyledFormRow>
         </Form>
     );
 }
