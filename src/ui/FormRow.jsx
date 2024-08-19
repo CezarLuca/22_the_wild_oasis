@@ -1,14 +1,5 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-// import toast from "react-hot-toast";
-// import { useForm } from "react-hook-form";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import Input from "./Input";
-// import Form from "./Form";
-// import Button from "./Button";
-// import FileInput from "./FileInput";
-// import Textarea from "./Textarea";
-// import { createCabin } from "../../services/apiCabins";
 
 const StyledFormRow = styled.div`
     display: grid;
@@ -50,14 +41,6 @@ function FormRow({ label, errors, children }) {
     return (
         <StyledFormRow>
             {label && <Label htmlFor={children.props.id}>{label}</Label>}
-
-            {/* <Input
-                type="text"
-                id="name"
-                {...register("name", {
-                    required: "This field is required",
-                })}
-            /> */}
             {children}
             {errors && <Error>{errors}</Error>}
         </StyledFormRow>
@@ -65,9 +48,9 @@ function FormRow({ label, errors, children }) {
 }
 
 FormRow.propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     errors: PropTypes.string,
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
 };
 
 export default FormRow;
