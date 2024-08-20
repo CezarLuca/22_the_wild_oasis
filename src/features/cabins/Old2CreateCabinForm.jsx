@@ -1,21 +1,16 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import PropTypes from "prop-types";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
-import FormRow from "../../ui/FormRow";
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCabin } from "../../services/apiCabins";
+import toast from "react-hot-toast";
+import FormRow from "../../ui/FormRow";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
-    const { id: editId, ...editValues } = cabinToEdit;
-    const isEditing = Boolean(editId);
-    const { register, handleSubmit, reset, getValues, formState } = useForm({
-        defaultValues: isEditing ? editValues : {},
-    });
+function CreateCabinForm() {
+    const { register, handleSubmit, reset, getValues, formState } = useForm();
     const { errors } = formState;
     // console.log(errors);
     const queryClient = useQueryClient();
@@ -104,6 +99,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
                                 getValues().regular_price
                             );
                             return (
+                                // value <= getValues().regular_price ||
+                                // `Discount must be smaller than regular price: ${
+                                //     getValues().regular_price
+                                // }`
                                 valueAsNumber <= regularPrice ||
                                 `Discount must be smaller than regular price: ${regularPrice}`
                             );
@@ -131,7 +130,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
                     accept="image/*"
                     disabled={isCreating}
                     {...register("image", {
-                        required: isEditing ? false : "This field is required",
+                        required: "This field is required",
                     })}
                 />
             </FormRow>
@@ -141,24 +140,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
                 <Button $variation="secondary" type="reset">
                     Cancel
                 </Button>
-                <Button disabled={isCreating}>
-                    {isEditing ? "Edit cabin" : "Add new cabin"}
-                </Button>
+                <Button disabled={isCreating}>Add cabin</Button>
             </FormRow>
         </Form>
     );
 }
-
-CreateCabinForm.propTypes = {
-    cabinToEdit: PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        name: PropTypes.string,
-        max_capacity: PropTypes.number,
-        regular_price: PropTypes.number,
-        discount: PropTypes.number,
-        description: PropTypes.string,
-        image: PropTypes.string,
-    }),
-};
 
 export default CreateCabinForm;
