@@ -33,7 +33,7 @@ function CreateCabinForm() {
 
     function onSubmit(data) {
         // console.log(data);
-        mutate({ ...data, image: data.image.at(0) });
+        mutate({ ...data, image: data.image[0] });
     }
 
     function onError(errors) {
@@ -94,9 +94,17 @@ function CreateCabinForm() {
                     {...register("discount", {
                         required: "This field is required",
                         validate: (value) => {
+                            const valueAsNumber = Number(value);
+                            const regularPrice = Number(
+                                getValues().regular_price
+                            );
                             return (
-                                value <= getValues().regular_price ||
-                                "Discount must be smaller than regular price"
+                                // value <= getValues().regular_price ||
+                                // `Discount must be smaller than regular price: ${
+                                //     getValues().regular_price
+                                // }`
+                                valueAsNumber <= regularPrice ||
+                                `Discount must be smaller than regular price: ${regularPrice}`
                             );
                         },
                     })}

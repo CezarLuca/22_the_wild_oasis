@@ -28,6 +28,20 @@ export async function createCabin(newCabin) {
     // 2. Upload the image
     // https://izpcculeirjezmpfwdrd.supabase.co/storage/v1/object/public/cabin-images/cabin-007.jpg
 
+    const { error: storageError } = await supabase.storage
+        .from("cabin-images")
+        .upload(imageName, newCabin.image);
+
+    // 3. Delete the Cabin if the image upload fails
+
+    if (storageError) {
+        await supabase.from("cabins").delete().eq("id", data.id);
+        console.log(storageError);
+        throw new Error(
+            "An error occurred while uploading the image, the cabin was not created."
+        );
+    }
+
     return data;
 }
 
