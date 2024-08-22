@@ -84,9 +84,11 @@ function CabinRow({ cabin }) {
                 <Cabin role="cell">{name}</Cabin>
                 <div role="cell">Fits up to {maxCapacity} guests</div>
                 <Price role="cell">{formatCurrency(regularPrice)}</Price>
-                <Discount role="cell">
-                    {discount ? `-${formatCurrency(discount)}` : ""}
-                </Discount>
+                {discount ? (
+                    <Discount role="cell">{formatCurrency(discount)}</Discount>
+                ) : (
+                    <span role="cell">&mdash;</span>
+                )}
                 <div>
                     <button onClick={() => setShowForm((show) => !show)}>
                         Edit
