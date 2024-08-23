@@ -64,8 +64,8 @@ function CabinRow({ cabin }) {
     function hadleDuplicate() {
         createCabin({
             name: `Copy of ${name}`,
-            maxCapacity,
-            regularPrice,
+            max_capacity: maxCapacity,
+            regular_price: regularPrice,
             discount,
             image,
             description,
@@ -85,7 +85,7 @@ function CabinRow({ cabin }) {
                     <span role="cell">&mdash;</span>
                 )}
                 <div>
-                    <button>
+                    <button disabled={isCreating} onClick={hadleDuplicate}>
                         <HiSquare2Stack />
                     </button>
                     <button onClick={() => setShowForm((show) => !show)}>
