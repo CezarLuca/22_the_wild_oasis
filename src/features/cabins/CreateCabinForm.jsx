@@ -1,6 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import PropTypes from "prop-types";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -8,8 +6,8 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
-import { createEditCabin } from "../../services/apiCabins";
 import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
     const { id: editId, ...editValues } = cabinToEdit;
@@ -19,25 +17,8 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     });
     const { errors } = formState;
     // console.log(errors);
-    const queryClient = useQueryClient();
     const { isCreating, createCabin } = useCreateCabin();
-
-    const { mutate: editCabin, isLoading: isEditing } = useMutation({
-        mutationFn: ({ newCabinData, id }) => {
-            return createEditCabin(newCabinData, id);
-        },
-        onSuccess: () => {
-            toast.success("Cabin successfully edited");
-            queryClient.invalidateQueries({ queryKey: ["cabins"] });
-            reset();
-        },
-        onError: (error) => {
-            toast.error(
-                `An error occurred while editing the cabin: ${error.message}`
-            );
-            console.error(error);
-        },
-    });
+    const { isEditing, editCabin } = useEditCabin();
 
     const isWorking = isCreating || isEditing;
 
@@ -48,7 +29,17 @@ function CreateCabinForm({ cabinToEdit = {} }) {
         if (isEditingSession) {
             editCabin({ newCabinData: { ...data, image }, id: editId });
         } else {
-            createCabin({ ...data, image: data.image[0] });
+            // createCabin({ ...data, image: data.image[0] });
+            createCabin(
+                { ...data, image: image },
+                {
+                    onSuccess: () => {
+                        // onSuccess: (data) => {
+                        // console.log(data);
+                        reset();
+                    },
+                }
+            );
         }
     }
 
