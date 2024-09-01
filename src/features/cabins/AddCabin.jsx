@@ -6,6 +6,10 @@ import Modal from "../../ui/Modal";
 function AddCabin() {
     const [isOpenModal, setIsOpenModal] = useState(false);
 
+    function handleCloseModal() {
+        setIsOpenModal(false);
+    }
+
     return (
         <div>
             <Button onClick={() => setIsOpenModal(!isOpenModal)}>
@@ -13,8 +17,8 @@ function AddCabin() {
             </Button>
             {/* {isOpenModal && <CreateCabinForm />} */}
             {isOpenModal && (
-                <Modal>
-                    <CreateCabinForm />
+                <Modal onClose={handleCloseModal}>
+                    <CreateCabinForm onCloseModal={handleCloseModal} />
                 </Modal>
             )}
         </div>
