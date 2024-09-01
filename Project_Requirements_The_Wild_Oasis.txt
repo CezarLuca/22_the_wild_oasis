@@ -67,3 +67,7 @@ Project Requirements From The Business:
         - Users should be able to define a few application-wide settings: breakfast price,
             minimum and maximum nights per booking, maximum guests per booking;
         - App needs a dark mode.
+    
+    8. BUGFIXES:
+
+        - Edit Cabin Functionality -> a better way to close the edit cabin form;

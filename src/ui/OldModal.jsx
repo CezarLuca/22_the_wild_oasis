@@ -2,7 +2,6 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
-import { cloneElement, createContext, useContext, useState } from "react";
 
 const StyledModal = styled.div`
     position: fixed;
@@ -53,23 +52,7 @@ const Button = styled.button`
     }
 `;
 
-const MoadalContext = createContext();
-
-function Modal({ children }) {
-    const [openName, setOpenName] = useState("");
-
-    const close = () => setOpenName("");
-    const open = (name) => setOpenName(name);
-}
-
-function Open({ children, opens: opensWindowName }) {
-    const { open } = useContext(MoadalContext);
-    return cloneElement(children, {
-        onClick: () => open(opensWindowName),
-    });
-}
-
-function Window({ children, onClose }) {
+function Modal({ children, onClose }) {
     return createPortal(
         <Overlay>
             <StyledModal>
@@ -83,15 +66,7 @@ function Window({ children, onClose }) {
     );
 }
 
-Modal.Open = Open;
-Modal.Window = Window;
-
-Open.propTypes = {
-    children: PropTypes.node.isRequired,
-    opens: PropTypes.string.isRequired,
-};
-
-Window.propTypes = {
+Modal.propTypes = {
     children: PropTypes.node.isRequired,
     onClose: PropTypes.func.isRequired,
 };
