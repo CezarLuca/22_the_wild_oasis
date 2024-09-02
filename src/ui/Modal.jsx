@@ -6,10 +6,11 @@ import {
     cloneElement,
     createContext,
     useContext,
-    useEffect,
+    // useEffect,
     useRef,
     useState,
 } from "react";
+import { useOutsideClick } from "./useOutsideClick";
 
 const StyledModal = styled.div`
     position: fixed;
@@ -85,19 +86,20 @@ function Open({ children, opens: opensWindowName }) {
 function Window({ children, name }) {
     const { openName, close } = useContext(MoadalContext);
     const ref = useRef();
+    useOutsideClick(close, ref);
 
-    useEffect(() => {
-        const handleClick = (e) => {
-            if (ref.current && !ref.current.contains(e.target)) {
-                console.log("click outside");
-                close();
-            }
-        };
+    // useEffect(() => {
+    //     const handleClick = (e) => {
+    //         if (ref.current && !ref.current.contains(e.target)) {
+    //             console.log("click outside");
+    //             close();
+    //         }
+    //     };
 
-        document.addEventListener("click", handleClick, true);
+    //     document.addEventListener("click", handleClick, true);
 
-        return () => document.removeEventListener("click", handleClick, true);
-    }, [close]);
+    //     return () => document.removeEventListener("click", handleClick, true);
+    // }, [close]);
 
     if (name !== openName) {
         return null;
