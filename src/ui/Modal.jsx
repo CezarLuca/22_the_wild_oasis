@@ -2,7 +2,13 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
-import { cloneElement, createContext, useContext, useState } from "react";
+import {
+    cloneElement,
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 
 const StyledModal = styled.div`
     position: fixed;
@@ -77,6 +83,15 @@ function Open({ children, opens: opensWindowName }) {
 
 function Window({ children, name }) {
     const { openName, close } = useContext(MoadalContext);
+
+    useEffect(() => {
+        const handleClick = (e) => {};
+
+        document.addEventListener("click", handleClick);
+
+        return () => document.removeEventListener("click", handleClick);
+    }, []);
+
     if (name !== openName) {
         return null;
     }
