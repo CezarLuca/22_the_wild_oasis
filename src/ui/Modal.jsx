@@ -60,6 +60,12 @@ function Modal({ children }) {
 
     const close = () => setOpenName("");
     const open = (name) => setOpenName(name);
+
+    return (
+        <MoadalContext.Provider value={{ openName, close, open }}>
+            {children}
+        </MoadalContext.Provider>
+    );
 }
 
 function Open({ children, opens: opensWindowName }) {
@@ -69,14 +75,19 @@ function Open({ children, opens: opensWindowName }) {
     });
 }
 
-function Window({ children, onClose }) {
+function Window({ children, name }) {
+    const { openName, close } = useContext(MoadalContext);
+    if (name !== openName) {
+        return null;
+    }
+
     return createPortal(
         <Overlay>
             <StyledModal>
-                <Button onClick={onClose}>
+                <Button onClick={close}>
                     <HiXMark />
                 </Button>
-                <div>{children}</div>
+                <div>{cloneElement(children, { onCloseModal: close })}</div>
             </StyledModal>
         </Overlay>,
         document.body
@@ -86,14 +97,17 @@ function Window({ children, onClose }) {
 Modal.Open = Open;
 Modal.Window = Window;
 
+Modal.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 Open.propTypes = {
     children: PropTypes.node.isRequired,
     opens: PropTypes.string.isRequired,
 };
-
 Window.propTypes = {
     children: PropTypes.node.isRequired,
-    onClose: PropTypes.func.isRequired,
+    // onClose: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 export default Modal;
