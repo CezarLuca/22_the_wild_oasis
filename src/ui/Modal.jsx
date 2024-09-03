@@ -6,7 +6,6 @@ import {
     cloneElement,
     createContext,
     useContext,
-    // useEffect,
     useRef,
     useState,
 } from "react";
@@ -88,19 +87,6 @@ function Window({ children, name }) {
     const ref = useRef();
     useOutsideClick(close, ref);
 
-    // useEffect(() => {
-    //     const handleClick = (e) => {
-    //         if (ref.current && !ref.current.contains(e.target)) {
-    //             console.log("click outside");
-    //             close();
-    //         }
-    //     };
-
-    //     document.addEventListener("click", handleClick, true);
-
-    //     return () => document.removeEventListener("click", handleClick, true);
-    // }, [close]);
-
     if (name !== openName) {
         return null;
     }
@@ -130,7 +116,6 @@ Open.propTypes = {
 };
 Window.propTypes = {
     children: PropTypes.node.isRequired,
-    // onClose: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
 };
 

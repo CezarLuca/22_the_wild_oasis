@@ -70,4 +70,4 @@ Project Requirements From The Business:
     
     8. BUGFIXES:
 
-        - Edit Cabin Functionality -> a better way to close the edit cabin form;
+        DONE ✅ - Edit Cabin Functionality -> a better way to close the edit cabin form;
