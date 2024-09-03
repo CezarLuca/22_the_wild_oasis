@@ -89,7 +89,17 @@ function Row({ children }) {
     );
 }
 
-function Body({ children }) {}
+function Body({ data, render }) {
+    return (
+        <StyledBody role="rowgroup">
+            {data.length === 0 ? (
+                <Empty>No data available</Empty>
+            ) : (
+                data.map(render)
+            )}
+        </StyledBody>
+    );
+}
 
 Table.Header = Header;
 Table.Body = Body;
@@ -107,7 +117,8 @@ Row.propTypes = {
     children: PropTypes.node.isRequired,
 };
 Body.propTypes = {
-    children: PropTypes.node.isRequired,
+    data: PropTypes.array.isRequired,
+    render: PropTypes.func.isRequired,
 };
 
 export default Table;
