@@ -113,8 +113,8 @@ function CabinRow({ cabin }) {
                     </Modal.Window>
                 </Modal>
                 <Menus.Menu>
-                    <Menus.Toggle />
-                    <Menus.List>
+                    <Menus.Toggle id={cabinId} />
+                    <Menus.List id={cabinId}>
                         <Menus.Button>Duplicate</Menus.Button>
                         <Menus.Button>Edit</Menus.Button>
                         <Menus.Button>Delete</Menus.Button>
