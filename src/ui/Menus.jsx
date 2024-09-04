@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import { HiEllipsisVertical } from "react-icons/hi2";
 
 const Menu = styled.div`
     display: flex;
@@ -67,18 +68,42 @@ const MenusContext = createContext();
 function Menus({ children }) {
     const [openId, setOpenId] = useState("");
 
+    const close = () => setOpenId("");
+    const open = setOpenId;
+
     return (
-        <MenusContext.Provider value={{ openId }}>
+        <MenusContext.Provider value={{ openId, close, open }}>
             {children}
         </MenusContext.Provider>
     );
 }
 
-function Toggle({ id }) {}
+function Toggle({ id }) {
+    const { openId, close, open } = useContext(MenusContext);
+    function handleClick() {
+        if (openId === "" || openId !== id) {
+            open(id);
+        } else {
+            close();
+        }
+    }
+
+    return (
+        <StyledToggle onClick={handleClick}>
+            <HiEllipsisVertical />
+        </StyledToggle>
+    );
+}
 
 function List({ id }) {}
 
-function Button({ children }) {}
+function Button({ children }) {
+    return (
+        <li>
+            <StyledButton>{children}</StyledButton>
+        </li>
+    );
+}
 
 Menus.Menu = Menu;
 Menus.Toggle = Toggle;
@@ -86,6 +111,12 @@ Menus.List = List;
 Menus.Button = Button;
 
 Menus.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+Toggle.propTypes = {
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+};
+Button.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
