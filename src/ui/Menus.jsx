@@ -2,6 +2,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { createContext, useContext, useState } from "react";
 import { HiEllipsisVertical } from "react-icons/hi2";
+import { createPortal } from "react-dom";
 
 const Menu = styled.div`
     display: flex;
@@ -95,7 +96,13 @@ function Toggle({ id }) {
     );
 }
 
-function List({ id }) {}
+function List({ id, children }) {
+    const { openId } = useContext(MenusContext);
+
+    if (openId !== id) return null;
+
+    return createPortal(<StyledList>{children}</StyledList>, document.body);
+}
 
 function Button({ children }) {
     return (
@@ -117,6 +124,10 @@ Toggle.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 Button.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+List.propTypes = {
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     children: PropTypes.node.isRequired,
 };
 
