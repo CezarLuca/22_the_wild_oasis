@@ -101,7 +101,10 @@ function List({ id, children }) {
 
     if (openId !== id) return null;
 
-    return createPortal(<StyledList>{children}</StyledList>, document.body);
+    return createPortal(
+        <StyledList position={{ x: 20, y: 20 }}>{children}</StyledList>,
+        document.body
+    );
 }
 
 function Button({ children }) {
