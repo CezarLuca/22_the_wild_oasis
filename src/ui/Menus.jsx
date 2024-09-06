@@ -117,10 +117,20 @@ function List({ id, children }) {
     );
 }
 
-function Button({ children }) {
+function Button({ children, icon, onClick }) {
+    const { close } = useContext(MenusContext);
+
+    function handleClick() {
+        onClick?.();
+        close();
+    }
+
     return (
         <li>
-            <StyledButton>{children}</StyledButton>
+            <StyledButton onClick={handleClick}>
+                {icon}
+                <span>{children}</span>
+            </StyledButton>
         </li>
     );
 }
@@ -138,6 +148,8 @@ Toggle.propTypes = {
 };
 Button.propTypes = {
     children: PropTypes.node.isRequired,
+    icon: PropTypes.node,
+    onClick: PropTypes.func,
 };
 List.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

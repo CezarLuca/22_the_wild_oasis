@@ -63,7 +63,7 @@ function CabinRow({ cabin }) {
         description,
     } = cabin;
 
-    function hadleDuplicate() {
+    function handleDuplicate() {
         createCabin({
             name: `Copy of ${name}`,
             max_capacity: maxCapacity,
@@ -86,7 +86,7 @@ function CabinRow({ cabin }) {
                 <span role="cell">&mdash;</span>
             )}
             <div>
-                <button disabled={isCreating} onClick={hadleDuplicate}>
+                <button disabled={isCreating} onClick={handleDuplicate}>
                     <HiSquare2Stack />
                 </button>
 
@@ -115,9 +115,14 @@ function CabinRow({ cabin }) {
                 <Menus.Menu>
                     <Menus.Toggle id={cabinId} />
                     <Menus.List id={cabinId}>
-                        <Menus.Button>Duplicate</Menus.Button>
-                        <Menus.Button>Edit</Menus.Button>
-                        <Menus.Button>Delete</Menus.Button>
+                        <Menus.Button
+                            icon={<HiSquare2Stack />}
+                            onClick={handleDuplicate}
+                        >
+                            Duplicate
+                        </Menus.Button>
+                        <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+                        <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
                     </Menus.List>
                 </Menus.Menu>
             </div>
