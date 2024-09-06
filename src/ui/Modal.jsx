@@ -6,7 +6,7 @@ import {
     cloneElement,
     createContext,
     useContext,
-    useRef,
+    // useRef,
     useState,
 } from "react";
 import { useOutsideClick } from "./useOutsideClick";
@@ -84,8 +84,9 @@ function Open({ children, opens: opensWindowName }) {
 
 function Window({ children, name }) {
     const { openName, close } = useContext(MoadalContext);
-    const ref = useRef();
-    useOutsideClick(close, ref);
+    // const ref = useRef();
+    // useOutsideClick(close, ref);
+    const ref = useOutsideClick(close);
 
     if (name !== openName) {
         return null;

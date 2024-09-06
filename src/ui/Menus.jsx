@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { createContext, useContext, useState, useRef } from "react";
+import { createContext, useContext, useState } from "react";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import { createPortal } from "react-dom";
 import { useOutsideClick } from "./useOutsideClick";
@@ -108,11 +108,9 @@ function Toggle({ id }) {
 
 function List({ id, children }) {
     const { openId, position, close } = useContext(MenusContext);
-    // console.log(position);
-    // console.log(close);
-    const ref = useRef();
-    useOutsideClick(close, ref);
-    // console.log(ref);
+    // const ref = useRef();
+    // useOutsideClick(close, ref);
+    const ref = useOutsideClick(close);
 
     if (openId !== id) return null;
 
