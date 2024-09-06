@@ -87,7 +87,6 @@ function Toggle({ id }) {
     const { openId, close, open, setPosition } = useContext(MenusContext);
     function handleClick(e) {
         const rect = e.target.closest("button").getBoundingClientRect();
-        // console.log(rect);
         setPosition({
             x: window.innerWidth - rect.width - rect.x,
             y: rect.y + rect.height + 8,
@@ -108,8 +107,6 @@ function Toggle({ id }) {
 
 function List({ id, children }) {
     const { openId, position, close } = useContext(MenusContext);
-    // const ref = useRef();
-    // useOutsideClick(close, ref);
     const ref = useOutsideClick(close);
 
     if (openId !== id) return null;
