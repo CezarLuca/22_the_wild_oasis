@@ -71,3 +71,4 @@ Project Requirements From The Business:
     8. BUGFIXES:
 
         DONE ✅ - Edit Cabin Functionality -> a better way to close the edit cabin form;
+        - Cabin Menu Modal -> close modal on menu icon click;
