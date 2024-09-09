@@ -30,15 +30,21 @@ function CabinTable() {
     // 2) SORT
     const sortBy = searchParams.get("sortBy") || "starting_date-asc";
     const [field, direction] = sortBy.split("-");
-    // console.log(field, direction);
     const sortedCabins = filteredCabins.sort((a, b) => {
         if (direction === "asc") {
-            return a[field] - b[field];
+            if (typeof a[field] === "number" && typeof b[field] === "number") {
+                return a[field] - b[field];
+            } else {
+                return a[field].localeCompare(b[field]);
+            }
         } else {
-            return b[field] - a[field];
+            if (typeof a[field] === "number" && typeof b[field] === "number") {
+                return b[field] - a[field];
+            } else {
+                return b[field].localeCompare(a[field]);
+            }
         }
     });
-    // console.log(sortedCabins);
 
     return (
         <Menus>
