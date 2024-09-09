@@ -15,7 +15,10 @@ function CabinTableOperations() {
             />
             <SortBy
                 options={[
-                    { value: "name-asc", label: "Sort by Name (ascending)" },
+                    {
+                        value: "name-asc",
+                        label: "Sort by Name (ascending)",
+                    },
                     {
                         value: "name-desc",
                         label: "Sort by Name (descending)",
@@ -38,11 +41,11 @@ function CabinTableOperations() {
                     },
                     {
                         value: "discount-asc",
-                        label: "Sort by Highest Discount",
+                        label: "Sort by Lowest Discount",
                     },
                     {
                         value: "discount-desc",
-                        label: "Sort by Lowest Discount",
+                        label: "Sort by Highest Discount",
                     },
                     { value: "rating", label: "Rating" },
                 ]}
