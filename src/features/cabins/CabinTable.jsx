@@ -39,13 +39,13 @@ function CabinTable() {
             if (typeof a[field] === "number" && typeof b[field] === "number") {
                 return a[field] - b[field];
             } else {
-                return a[field].localeCompare(b[field]);
+                return a[field]?.localeCompare(b[field]);
             }
         } else {
             if (typeof a[field] === "number" && typeof b[field] === "number") {
                 return b[field] - a[field];
             } else {
-                return b[field].localeCompare(a[field]);
+                return b[field]?.localeCompare(a[field]);
             }
         }
     });
