@@ -100,8 +100,8 @@ BookingRow.propTypes = {
             email_address: PropTypes.string.isRequired,
         }).isRequired,
         cabins: PropTypes.shape({
-            name: PropTypes.string.isRequired,
-        }).isRequired,
+            name: PropTypes.string,
+        }),
     }),
 };
 
