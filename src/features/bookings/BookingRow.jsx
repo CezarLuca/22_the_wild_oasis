@@ -46,7 +46,7 @@ function BookingRow({
         total_price: totalPrice,
         status,
         guests: { full_name: guestName, email_address: email },
-        cabins: { name: cabinName },
+        cabins,
     },
 }) {
     const statusToTagName = {
@@ -54,6 +54,8 @@ function BookingRow({
         "checked-in": "green",
         "checked-out": "silver",
     };
+
+    const cabinName = cabins?.name || "Unknown Cabin";
 
     return (
         <Table.Row>
