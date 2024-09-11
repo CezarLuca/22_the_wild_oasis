@@ -1,12 +1,20 @@
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
-export async function getBookings() {
-    const { data, error } = await supabase
+export async function getBookings({ filter, sortyBy }) {
+    let query = supabase
         .from("bookings")
         .select(
             "id, created_at, starting_date, ending_date, num_nights, num_guests, status, total_price, cabins(name), guests(full_name, email_address)"
         );
+
+    //FILTER
+    // If we want to use multiple filters, we can add an array of objects and loop through them to add them to the query variable
+    if (filter !== null) {
+        query = query[filter.method || "eq"](filter.field, filter.value);
+    }
+
+    const { data, error } = await query;
 
     if (error) {
         console.error(error);
