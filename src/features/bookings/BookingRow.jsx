@@ -4,9 +4,12 @@ import PropTypes from "prop-types";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import { HiEye } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const Cabin = styled.div`
     font-size: 1.6rem;
@@ -49,6 +52,7 @@ function BookingRow({
         cabins,
     },
 }) {
+    const navigate = useNavigate();
     const statusToTagName = {
         unconfirmed: "blue",
         "checked-in": "green",
@@ -56,6 +60,9 @@ function BookingRow({
     };
 
     const cabinName = cabins?.name || "Unknown Cabin";
+
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
 
     return (
         <Table.Row>
@@ -68,20 +75,42 @@ function BookingRow({
 
             <Stacked>
                 <span>
-                    {isToday(new Date(startDate))
+                    {/* {isToday(new Date(startDate))
                         ? "Today"
                         : formatDistanceFromNow(startDate)}{" "}
+                    &rarr; {numNights} night stay */}
+                    {isToday(startDateObj)
+                        ? "Today"
+                        : formatDistanceFromNow(startDateObj)}{" "}
                     &rarr; {numNights} night stay
                 </span>
                 <span>
-                    {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-                    {format(new Date(endDate), "MMM dd yyyy")}
+                    {/* {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
+                    {format(new Date(endDate), "MMM dd yyyy")} */}
+                    {isNaN(startDateObj)
+                        ? "Invalid date"
+                        : format(startDateObj, "MMM dd yyyy")}{" "}
+                    &mdash;{" "}
+                    {isNaN(endDateObj)
+                        ? "Invalid date"
+                        : format(endDateObj, "MMM dd yyyy")}
                 </span>
             </Stacked>
 
             <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
             <Amount>{formatCurrency(totalPrice)}</Amount>
+            <Menus.Menu>
+                <Menus.Toggle id={bookingId} />
+                <Menus.List id={bookingId}>
+                    <Menus.Button
+                        icon={<HiEye />}
+                        onClick={() => navigate(`/bookings/${bookingId}`)}
+                    >
+                        See details
+                    </Menus.Button>
+                </Menus.List>
+            </Menus.Menu>
         </Table.Row>
     );
 }
