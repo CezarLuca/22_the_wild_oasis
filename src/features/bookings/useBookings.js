@@ -45,12 +45,18 @@ export function useBookings() {
 
     const {
         isLoading,
-        data: bookings,
+        // data: { data: bookings, count },
+        data,
         error,
     } = useQuery({
         queryKey: ["bookings", filter, sortBy],
         queryFn: () => getBookings({ filter, sortBy }),
     });
 
-    return { isLoading, error, bookings };
+    const bookings = data?.data || [];
+    const count = data?.count || 0;
+
+    console.log(data, bookings, count);
+
+    return { isLoading, error, bookings, count };
 }
