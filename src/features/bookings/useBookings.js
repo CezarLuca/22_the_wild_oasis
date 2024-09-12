@@ -43,20 +43,27 @@ export function useBookings() {
     const [field, direction] = sortByRaw.split("-");
     const sortBy = { field, direction };
 
+    // PAGINATION
+
+    const page = !searchParams.get("page")
+        ? 1
+        : Number(searchParams.get("page"));
+
     const {
         isLoading,
         // data: { data: bookings, count },
         data,
         error,
     } = useQuery({
-        queryKey: ["bookings", filter, sortBy],
-        queryFn: () => getBookings({ filter, sortBy }),
+        queryKey: ["bookings", filter, sortBy, page],
+        queryFn: () => getBookings({ filter, sortBy, page }),
     });
 
+    // Desctructuring the data object to get the bookings and count and setting them to default values in case the data object is undefined
     const bookings = data?.data || [];
     const count = data?.count || 0;
 
-    console.log(data, bookings, count);
+    // console.log(data, bookings, count);
 
     return { isLoading, error, bookings, count };
 }
