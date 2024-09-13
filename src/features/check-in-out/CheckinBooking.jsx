@@ -37,7 +37,7 @@ function CheckinBooking() {
         [booking?.is_paid]
     );
 
-    if (isLoading) {
+    if (isLoading || isLoadingSettings) {
         return <Spinner />;
     }
 
@@ -57,7 +57,18 @@ function CheckinBooking() {
         if (!confirmPaid) {
             return;
         }
-        checkin(bookingId);
+        if (addBreakfast) {
+            checkin({
+                bookingId,
+                breakfast: {
+                    has_breakfast: true,
+                    extras_price: optionalBreakfastPrice,
+                    total_price: totalPrice + optionalBreakfastPrice,
+                },
+            });
+        } else {
+            checkin({ bookingId, breakfast: { has_breakfast: false } });
+        }
     }
 
     return (
@@ -69,18 +80,21 @@ function CheckinBooking() {
 
             <BookingDataBox booking={booking} />
 
-            <Box>
-                <Checkbox
-                    checked={addBreakfast}
-                    onChange={() => {
-                        setAddBreakfast((add) => !add);
-                        setConfirmPaid(false);
-                    }}
-                    id="breakfast"
-                >
-                    Want to add breakfast for X?
-                </Checkbox>
-            </Box>
+            {!hasBreakfast && (
+                <Box>
+                    <Checkbox
+                        checked={addBreakfast}
+                        onChange={() => {
+                            setAddBreakfast((add) => !add);
+                            setConfirmPaid(false);
+                        }}
+                        id="breakfast"
+                    >
+                        Customer wants to add breakfast for{" "}
+                        {formatCurrency(optionalBreakfastPrice)}.{" "}
+                    </Checkbox>
+                </Box>
+            )}
 
             <Box>
                 <Checkbox
@@ -90,7 +104,15 @@ function CheckinBooking() {
                     disabled={confirmPaid || isCheckingIn}
                 >
                     I confim that {guests.full_name} has paid the total amount
-                    of {formatCurrency(totalPrice)}.
+                    of{" "}
+                    {!addBreakfast
+                        ? formatCurrency(totalPrice)
+                        : `${formatCurrency(
+                              totalPrice + optionalBreakfastPrice
+                          )} (${formatCurrency(totalPrice)} + ${formatCurrency(
+                              optionalBreakfastPrice
+                          )})`}
+                    .
                 </Checkbox>
             </Box>
 
