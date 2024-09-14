@@ -17,7 +17,7 @@ export function useCheckin() {
                 `Booking #${data.id} has been successfully checked in`
             );
             queryClient.invalidateQueries({ active: true });
-            navigate("/");
+            navigate("/bookings?status=checked-in");
         },
         onError: (error) => {
             toast.error(`There was an error checking in: ${error.message}`);
