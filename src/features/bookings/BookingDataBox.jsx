@@ -12,7 +12,6 @@ import DataItem from "../../ui/DataItem";
 import { Flag } from "../../ui/Flag";
 
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
-// import Spinner from "../../ui/Spinner";
 
 const StyledBookingDataBox = styled.section`
     /* Box */
@@ -105,9 +104,6 @@ const Footer = styled.footer`
 
 // A purely presentational component
 function BookingDataBox({ booking }) {
-    // if (isLoading) {
-    //     return <Spinner />;
-    // }
     const {
         created_at,
         starting_date: startDate,
