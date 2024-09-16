@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { format, isToday } from "date-fns";
 import PropTypes from "prop-types";
 
+import ConfirmDelete from "../../ui/ConfirmDelete";
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
@@ -9,7 +10,7 @@ import Modal from "../../ui/Modal";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
-import { HiEye, HiUserMinus, HiUserPlus } from "react-icons/hi2";
+import { HiEye, HiTrash, HiUserMinus, HiUserPlus } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/useCheckout";
 
@@ -129,9 +130,19 @@ function BookingRow({
                                 Check out
                             </Menus.Button>
                         )}
-                        <Modal.Open opens="delete"></Modal.Open>
+                        <Modal.Open opens="delete">
+                            <Menus.Button icon={<HiTrash />}>
+                                Delete booking
+                            </Menus.Button>
+                        </Modal.Open>
                     </Menus.List>
                 </Menus.Menu>
+                <Modal.Window name="delete">
+                    <ConfirmDelete
+                        resourcename="booking"
+                        onConfirm={() => {}}
+                    />
+                </Modal.Window>
             </Modal>
         </Table.Row>
     );
