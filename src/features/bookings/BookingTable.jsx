@@ -5,10 +5,25 @@ import Empty from "../../ui/Empty";
 import { useBookings } from "./useBookings";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
+// import { useEffect, useState } from "react";
 
 function BookingTable() {
     const { bookings, isLoading, count } = useBookings();
     // console.log(bookings);
+
+    // const [showSpinner, setShowSpinner] = useState(true);
+
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         setShowSpinner(false);
+    //     }, 2000); // Delay in milliseconds (e.g., 2000ms = 2 seconds)
+
+    //     return () => clearTimeout(timer);
+    // }, []);
+
+    // if (isLoading || showSpinner) {
+    //     return <Spinner />;
+    // }
 
     if (isLoading) {
         return <Spinner />;
