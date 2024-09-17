@@ -53,9 +53,11 @@ const SpinnerWrapper = styled.div`
 
 const LoadingText = styled.div`
     margin-top: 1rem;
-    font-size: 1.5rem;
-    font-family: "Arial", sans-serif; // Adjust the font as needed
-    color: var(--color-brand-600);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--color-grey-600);
+    font-family: "Sono";
+    position: relative;
 `;
 
 const dots = keyframes`
@@ -74,6 +76,9 @@ const dots = keyframes`
 `;
 
 const AnimatedDots = styled.span`
+    position: absolute;
+    left: 100%;
+    margin-left: 0.2rem;
     &::after {
         content: "";
         animation: ${dots} 1s steps(1, end) infinite;
