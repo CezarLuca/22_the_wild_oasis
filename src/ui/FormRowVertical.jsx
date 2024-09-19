@@ -19,7 +19,7 @@ const Error = styled.span`
 
 function FormRowVertical({ label, children, error }) {
     return (
-        <StyledFormRowVertical>
+        <StyledFormRowVertical label={label}>
             {label && <Label htmlFor={children.props.id}>{label}</Label>}
             {children}
             {error && <Error>{error}</Error>}
