@@ -50,17 +50,16 @@ function LoginForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={isPending}
                 />
+                <Button
+                    type="button"
+                    id="password-toggle"
+                    size="small"
+                    onClick={handleShowToggle}
+                    disabled={isPending}
+                >
+                    {showPassword ? <HiEyeSlash /> : <HiEye />}
+                </Button>
             </FormRowVertical>
-            <Button
-                type="button"
-                id="show"
-                size="small"
-                label="Toggle"
-                onClick={handleShowToggle}
-                disabled={isPending}
-            >
-                {showPassword ? <HiEyeSlash /> : <HiEye />}
-            </Button>
             <FormRowVertical>
                 <Button size="large" disabled={isPending}>
                     {!isPending ? "Login" : <SpinnerMini />}
