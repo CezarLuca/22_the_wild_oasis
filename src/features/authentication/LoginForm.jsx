@@ -13,7 +13,8 @@ function LoginForm() {
     const [email, setEmail] = useState("cezar@mustermail.com");
     const [password, setPassword] = useState("asdasdasd");
     const [showPassword, setShowPassword] = useState(false);
-    const { login, isLoading } = useLogin();
+    const { login, isPending } = useLogin();
+    // console.log("isPending:", isPending);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -37,7 +38,7 @@ function LoginForm() {
                     autoComplete="username"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    disabled={isLoading}
+                    disabled={isPending}
                 />
             </FormRowVertical>
             <FormRowVertical label="Password">
@@ -47,7 +48,7 @@ function LoginForm() {
                     autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    disabled={isLoading}
+                    disabled={isPending}
                 />
             </FormRowVertical>
             <Button
@@ -56,13 +57,13 @@ function LoginForm() {
                 size="small"
                 label="Toggle"
                 onClick={handleShowToggle}
-                disabled={isLoading}
+                disabled={isPending}
             >
                 {showPassword ? <HiEyeSlash /> : <HiEye />}
             </Button>
             <FormRowVertical>
-                <Button size="large" disabled={isLoading}>
-                    {!isLoading ? "Login" : <SpinnerMini />}
+                <Button size="large" disabled={isPending}>
+                    {!isPending ? "Login" : <SpinnerMini />}
                 </Button>
             </FormRowVertical>
         </Form>
