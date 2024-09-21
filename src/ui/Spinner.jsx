@@ -42,8 +42,9 @@ import spinnerGif from "../data/img/AnimeLoading.gif"; // Adjust the path if nec
 // export default Spinner;
 
 const SpinnerWrapper = styled.div`
-    margin: 10vh auto; // Adjust the vertical margin to position it lower
+    margin: 20vh auto; // Adjust the vertical margin to position it lower
     width: 12rem; // Increase the size of the GIF
+    height: 12rem; // Increase the size of the GIF
     aspect-ratio: 1;
     display: flex;
     flex-direction: column;
@@ -52,7 +53,8 @@ const SpinnerWrapper = styled.div`
 `;
 
 const LoadingText = styled.div`
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    margin-left: -2rem;
     font-size: 1.6rem;
     font-weight: 600;
     color: var(--color-grey-600);

@@ -10,8 +10,10 @@ import { HiEyeSlash } from "react-icons/hi2";
 import { useLogin } from "./useLogin";
 
 function LoginForm() {
-    const [email, setEmail] = useState("cezar@mustermail.com");
-    const [password, setPassword] = useState("asdasdasd");
+    // const [email, setEmail] = useState("cezar@mustermail.com");
+    // const [password, setPassword] = useState("asdasdasd");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const { login, isPending } = useLogin();
     // console.log("isPending:", isPending);
