@@ -8,14 +8,27 @@ import { useSignup } from "./useSignup";
 // Email regex: /\S+@\S+\.\S+/
 
 function SignupForm() {
-    const { register, formState, getValues, handleSubmit } = useForm();
+    const { register, formState, getValues, handleSubmit, reset } = useForm();
     const { errors } = formState;
     const { signup, isLoading } = useSignup();
     // console.log(errors);
 
     function onSubmit({ fullName, email, password }) {
-        signup({ fullName, email, password });
-        console.log({ fullName, email, password });
+        signup(
+            { fullName, email, password },
+            {
+                onSettled: reset,
+            }
+            // {
+            //     onSucess: reset,
+            // },
+            // {
+            //     onError: (error) => {
+            //         console.log("Error signing up", error);
+            //     },
+            // }
+        );
+        // console.log({ fullName, email, password });
     }
 
     return (
@@ -24,6 +37,7 @@ function SignupForm() {
                 <Input
                     type="text"
                     id="fullName"
+                    dissabled={isLoading}
                     {...register("fullName", {
                         required: "This field is required",
                     })}
@@ -34,6 +48,7 @@ function SignupForm() {
                 <Input
                     type="email"
                     id="email"
+                    disabled={isLoading}
                     {...register("email", {
                         required: "This field is required",
                         pattern: {
@@ -51,6 +66,7 @@ function SignupForm() {
                 <Input
                     type="password"
                     id="password"
+                    disabled={isLoading}
                     {...register("password", {
                         required: "This field is required",
                         minLength: {
@@ -68,6 +84,7 @@ function SignupForm() {
                 <Input
                     type="password"
                     id="passwordConfirm"
+                    disabled={isLoading}
                     {...register("passwordConfirm", {
                         required: "This field is required",
                         validate: (value) =>
@@ -81,10 +98,14 @@ function SignupForm() {
 
             <FormRow>
                 {/* type is an HTML attribute! */}
-                <Button $variation="secondary" type="reset">
+                <Button
+                    $variation="secondary"
+                    type="reset"
+                    disabled={isLoading}
+                >
                     Cancel
                 </Button>
-                <Button>Create new user</Button>
+                <Button disabled={isLoading}>Create new user</Button>
             </FormRow>
         </Form>
     );
