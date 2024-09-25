@@ -52,3 +52,29 @@ export async function logout() {
         throw new Error(error.message);
     }
 }
+
+export async function updateCurrentUser({ password, fullName, avatar }) {
+    // 1. Update passowrd OR fullName
+    let updateData;
+    if (password) {
+        updateData = { password };
+    } else if (fullName) {
+        updateData = { data: { full_name: fullName } };
+    }
+
+    const { data, error } = await supabase.auth.updateUser();
+
+    if (error) {
+        throw new Error(error.message);
+    }
+    if (!avatar) {
+        return data;
+    }
+
+    // 2. Update avatar image
+    const fileName = `avatar-${data.user.id}-${Math.floor(
+        Math.random() * 1000000
+    )}`;
+
+    // 3. Update avater in the user
+}
