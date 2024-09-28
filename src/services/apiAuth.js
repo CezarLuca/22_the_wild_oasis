@@ -81,7 +81,8 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
         .from("avatars")
         .upload(fileName, avatar);
 
-    if (updateError) {
+    if (uploadError) {
+        console.error(uploadError);
         throw new Error(uploadError.message);
     }
 
