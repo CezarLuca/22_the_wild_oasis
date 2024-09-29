@@ -15,6 +15,7 @@ import Account from "./pages/Account";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import DarkModeProvider from "./context/DarkModeContext";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -29,7 +30,7 @@ const queryClient = new QueryClient({
 
 function App() {
     return (
-        <>
+        <DarkModeProvider>
             <QueryClientProvider client={queryClient}>
                 <ReactQueryDevtools initialIsOpen={false} />
                 <GlobalStyles />
@@ -86,7 +87,7 @@ function App() {
                     }}
                 />
             </QueryClientProvider>
-        </>
+        </DarkModeProvider>
     );
 }
 
