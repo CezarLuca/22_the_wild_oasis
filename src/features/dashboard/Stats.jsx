@@ -2,10 +2,24 @@ import PropTypes from "prop-types";
 import Stat from "./Stat";
 import { HiOutlineBriefcase, HiOutlineChartBar } from "react-icons/hi";
 import { HiOutlineBanknotes, HiOutlineCalendarDays } from "react-icons/hi2";
+import { formatCurrency } from "../../utils/helpers";
 
 function Stats({ bookings, confirmedStays }) {
     // 1. Calculate the number of bookings
     const numBookings = bookings.length;
+
+    // 2. Calculate the number of total sales
+    const totalSales = bookings.reduce((acc, cur) => acc + cur.total_price, 0);
+
+    // 3. Calculate the number of confirmed stays (total check-ins)
+    const checkinsAmount = confirmedStays.length;
+
+    // 4. Calculate the occupancy rate
+    // For now, we'll use the number of checked-in nights divided by the total number of nights
+    const occupancy = confirmedStays.reduce(
+        (acc, cur) => acc + cur.num_nights,
+        0
+    );
 
     return (
         <>
@@ -19,13 +33,13 @@ function Stats({ bookings, confirmedStays }) {
                 title="Sales"
                 color="green"
                 icon={<HiOutlineBanknotes />}
-                value={numBookings}
+                value={formatCurrency(totalSales)}
             />
             <Stat
                 title="Check-ins"
                 color="indigo"
                 icon={<HiOutlineCalendarDays />}
-                value={numBookings}
+                value={checkinsAmount}
             />
             <Stat
                 title="Occcupancy rate"
