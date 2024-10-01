@@ -4,7 +4,7 @@ import { HiOutlineBriefcase, HiOutlineChartBar } from "react-icons/hi";
 import { HiOutlineBanknotes, HiOutlineCalendarDays } from "react-icons/hi2";
 import { formatCurrency } from "../../utils/helpers";
 
-function Stats({ bookings, confirmedStays }) {
+function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
     // 1. Calculate the number of bookings
     const numBookings = bookings.length;
 
@@ -20,6 +20,8 @@ function Stats({ bookings, confirmedStays }) {
         (acc, cur) => acc + cur.num_nights,
         0
     );
+    const totalNights = numDays * cabinCount;
+    const occupancyRate = Math.round((occupancy / totalNights) * 100);
 
     return (
         <>
@@ -45,7 +47,7 @@ function Stats({ bookings, confirmedStays }) {
                 title="Occcupancy rate"
                 color="yellow"
                 icon={<HiOutlineChartBar />}
-                value={numBookings}
+                value={`${occupancyRate}%`}
             />
         </>
     );
@@ -54,6 +56,8 @@ function Stats({ bookings, confirmedStays }) {
 Stats.propTypes = {
     bookings: PropTypes.array.isRequired,
     confirmedStays: PropTypes.array.isRequired,
+    numDays: PropTypes.number.isRequired,
+    cabinCount: PropTypes.number.isRequired,
 };
 
 export default Stats;
