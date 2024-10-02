@@ -25,14 +25,14 @@ function DashboardLayout() {
     if (isLoadingBookings || isLoadingStays || isLoadingCabins) {
         return <Spinner />;
     }
-    console.log(
-        "Bookings array:",
-        bookings,
-        "Stays array:",
-        stays,
-        "Confirmed stays array:",
-        confirmedStays
-    );
+    // console.log(
+    //     "Bookings array:",
+    //     bookings,
+    //     "Stays array:",
+    //     stays,
+    //     "Confirmed stays array:",
+    //     confirmedStays
+    // );
     return (
         <StyledDashboardLayout>
             <Stats
