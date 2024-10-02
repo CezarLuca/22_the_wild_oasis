@@ -8,9 +8,11 @@ import {
     XAxis,
     YAxis,
 } from "recharts";
+import PropTypes from "prop-types";
 import DashboardBox from "./DashboardBox";
 import Heading from "../../ui/Heading";
 import { useDarkMode } from "../../context/useDarkMode";
+import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 
 const StyledSalesChart = styled(DashboardBox)`
     grid-column: 1 / -1;
@@ -54,8 +56,24 @@ const fakeData = [
     { label: "Feb 06", totalSales: 1450, extrasSales: 400 },
 ];
 
-function SalesChart() {
+function SalesChart({ bookings, numDays }) {
     const { isDarkMode } = useDarkMode();
+
+    const allDates = eachDayOfInterval({
+        start: subDays(new Date(), numDays - 1),
+        end: new Date(),
+    });
+    // console.log("All dates:", allDates);
+
+    const salesData = allDates.map((date) => {
+        return {
+            label: format(date, "MMM dd"),
+            totalSales: bookings.filter((booking) => {
+                return isSameDay(date, new Date(booking.created_at));
+            }),
+        };
+    });
+
     const colors = isDarkMode
         ? {
               totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
@@ -113,5 +131,10 @@ function SalesChart() {
         </StyledSalesChart>
     );
 }
+
+SalesChart.propTypes = {
+    bookings: PropTypes.array.isRequired,
+    numDays: PropTypes.number.isRequired,
+};
 
 export default SalesChart;
