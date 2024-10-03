@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Tag from "../../ui/Tag";
+import { Flag } from "../../ui/Flag";
 
 const StyledTodayItem = styled.li`
     display: grid;
@@ -26,7 +27,10 @@ function TodayItem({ activity }) {
     return (
         <StyledTodayItem>
             {status === "unconfirmed" && <Tag type="green">Arriving</Tag>}
-            {status === "unconfirmed" && <Tag type="green">Arriving</Tag>}
+            {status === "checked-in" && <Tag type="blue">Departing</Tag>}
+            <Flag src={guest.country_flag} alt={`Flag of ${guest.country}`} />
+            <Guest>{guest.full_name}</Guest>
+            <div>{num_nights} nights</div>
         </StyledTodayItem>
     );
 }
