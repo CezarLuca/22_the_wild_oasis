@@ -127,16 +127,37 @@ function prepareData(startData, stays) {
     const data = stays
         .reduce((arr, cur) => {
             const num = cur.num_nights;
-            if (num === 1) return incArrayValue(arr, "1 night");
-            if (num === 2) return incArrayValue(arr, "2 nights");
-            if (num === 3) return incArrayValue(arr, "3 nights");
-            if ([4, 5].includes(num)) return incArrayValue(arr, "4-5 nights");
-            if ([6, 7].includes(num)) return incArrayValue(arr, "6-7 nights");
-            if (num >= 8 && num <= 14) return incArrayValue(arr, "8-14 nights");
-            if (num >= 15 && num <= 21)
-                return incArrayValue(arr, "15-21 nights");
-            if (num >= 21) return incArrayValue(arr, "21+ nights");
-            return arr;
+            // if (num === 1) return incArrayValue(arr, "1 night");
+            // if (num === 2) return incArrayValue(arr, "2 nights");
+            // if (num === 3) return incArrayValue(arr, "3 nights");
+            // if ([4, 5].includes(num)) return incArrayValue(arr, "4-5 nights");
+            // if ([6, 7].includes(num)) return incArrayValue(arr, "6-7 nights");
+            // if (num >= 8 && num <= 14) return incArrayValue(arr, "8-14 nights");
+            // if (num >= 15 && num <= 21)
+            //     return incArrayValue(arr, "15-21 nights");
+            // if (num >= 21) return incArrayValue(arr, "21+ nights");
+            // return arr;
+
+            switch (true) {
+                case num === 1:
+                    return incArrayValue(arr, "1 night");
+                case num === 2:
+                    return incArrayValue(arr, "2 nights");
+                case num === 3:
+                    return incArrayValue(arr, "3 nights");
+                case [4, 5].includes(num):
+                    return incArrayValue(arr, "4-5 nights");
+                case [6, 7].includes(num):
+                    return incArrayValue(arr, "6-7 nights");
+                case num >= 8 && num <= 14:
+                    return incArrayValue(arr, "8-14 nights");
+                case num >= 15 && num <= 21:
+                    return incArrayValue(arr, "15-21 nights");
+                case num >= 21:
+                    return incArrayValue(arr, "21+ nights");
+                default:
+                    return arr;
+            }
         }, startData)
         .filter((obj) => obj.value > 0);
 
