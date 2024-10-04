@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Tag from "../../ui/Tag";
 import { Flag } from "../../ui/Flag";
+import Button from "../../ui/Button";
+import CheckoutButton from "./CheckoutButton";
 
 const StyledTodayItem = styled.li`
     display: grid;
@@ -31,6 +34,17 @@ function TodayItem({ activity }) {
             <Flag src={guests.country_flag} alt={`Flag of ${guests.country}`} />
             <Guest>{guests.full_name}</Guest>
             <div>{num_nights} nights</div>
+            {status === "unconfirmed" && (
+                <Button
+                    type="small"
+                    variation="primary"
+                    as={Link}
+                    to={`/checkin/${id}`}
+                >
+                    Check in
+                </Button>
+            )}
+            {status === "checked-in" && <CheckoutButton bookingId={id} />}
         </StyledTodayItem>
     );
 }

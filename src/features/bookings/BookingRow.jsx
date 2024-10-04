@@ -87,8 +87,8 @@ function BookingRow({
                     &rarr; {numNights} night stay
                 </span>
                 <span>
-                    {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-                    {format(new Date(endDate), "MMM dd yyyy")}
+                    {/* {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
+                    {format(new Date(endDate), "MMM dd yyyy")} */}
                     {isNaN(startDateObj)
                         ? "Invalid date"
                         : format(startDateObj, "MMM dd yyyy")}{" "}
