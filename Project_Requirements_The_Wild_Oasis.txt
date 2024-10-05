@@ -72,3 +72,12 @@ Project Requirements From The Business:
 
         DONE ✅ - Edit Cabin Functionality -> a better way to close the edit cabin form;
         - Cabin Menu Modal -> close modal on menu icon click;
+
+        To Investigate🤔 
+            - Strange behaviour of the TodayActivity displayed on the
+             dashboard. Particularly the function from apiBookings used in 
+             useTodayActivity hook. 
+                - The getStaysTodayActivity function behaves in a pequliar manner when
+                there is a date discrepancy between the local time and UTC.
+                - The function queries Supabase for specific dates from starting_date
+                and ending_date using a custom function getToday.

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 function DarkModeProvider({ children }) {
     const [isDarkMode, setIsDarkMode] = useLocalStorageState(
-        true,
+        window.matchMedia("(prefers-color-scheme: dark)").matches,
         "isDarkMode"
     );
 

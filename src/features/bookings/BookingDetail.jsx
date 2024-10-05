@@ -16,6 +16,7 @@ import { HiUserMinus, HiUserPlus } from "react-icons/hi2";
 import { useCheckout } from "../check-in-out/useCheckout";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Empty from "../../ui/Empty";
 // import { deleteBooking } from "../../services/apiBookings";
 import { useDeleteBooking } from "./useDeleteBooking";
 
@@ -35,8 +36,13 @@ function BookingDetail() {
     if (isLoading) {
         return <Spinner />;
     }
-    if (error) {
-        return <div>Error: {error.message}</div>;
+    if (error || !booking) {
+        return (
+            <>
+                <Empty resourceName="booking" />
+                {/* Error message: {error.message} */}
+            </>
+        );
     }
     // console.log(booking);
     const { status, id: bookingId } = booking;
@@ -64,7 +70,7 @@ function BookingDetail() {
             <ButtonGroup>
                 {status === "unconfirmed" && (
                     <Button
-                        icon={<HiUserPlus />}
+                        $icon={<HiUserPlus />}
                         onClick={() => navigate(`/checkin/${bookingId}`)}
                     >
                         Check In
@@ -72,7 +78,7 @@ function BookingDetail() {
                 )}
                 {status === "checked-in" && (
                     <Button
-                        icon={<HiUserMinus />}
+                        $icon={<HiUserMinus />}
                         onClick={() => checkout(bookingId)}
                         disabled={isCheckingOut}
                     >
