@@ -36,8 +36,8 @@ function TodayItem({ activity }) {
             <div>{num_nights} nights</div>
             {status === "unconfirmed" && (
                 <Button
-                    type="small"
-                    variation="primary"
+                    size="small"
+                    $variation="primary"
                     as={Link}
                     to={`/checkin/${id}`}
                 >
