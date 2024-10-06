@@ -106,7 +106,6 @@ function SalesChart({ bookings, numDays }) {
                     />
                 </AreaChart>
             </ResponsiveContainer>
-            {/* <LineChart /> */}
         </StyledSalesChart>
     );
 }
